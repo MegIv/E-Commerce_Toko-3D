@@ -18,7 +18,7 @@ class Store extends Model
         'city',
         'address',
         'postal_code',
-        'is_verified',
+        'status',
     ];
 
     // Relationship one store w owned by one user
