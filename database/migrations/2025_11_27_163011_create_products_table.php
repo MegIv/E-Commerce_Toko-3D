@@ -18,7 +18,7 @@ return new class extends Migration
             $table->uuid('product_category_id');
             $table->foreign('product_category_id')->references('id')->on('product_categories')->onDelete('cascade');
             $table->string('name');
-            $table->text('slug')->unique();
+            $table->string('slug')->unique();
             $table->longtext('description');
             $table->enum('condition', ['new', 'used', 'refurbished']);
             $table->decimal('price', 26, 2);

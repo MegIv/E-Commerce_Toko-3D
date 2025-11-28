@@ -2,17 +2,20 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-
 use App\Traits\UUID;
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 
 class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable, UUID;
+    use HasFactory, Notifiable, HasUuids;
+
+    protected $primaryKey = 'id';
+    public $incrementing = false; // Matikan auto-increment
+    protected $keyType = 'string'; // Beritahu bahwa ID adalah string
 
     /**
      * The attributes that are mass assignable.
@@ -58,5 +61,20 @@ class User extends Authenticatable
     public function buyer()
     {
         return $this->hasOne(Buyer::class);
+    }
+
+    public function isSeller()
+    {
+        return $this->role === 'seller';
+    }
+
+    public function isBuyer()
+    {
+        return $this->role === 'buyer';
+    }
+
+    public function isAdmin()
+    {
+        return $this->role === 'admin';
     }
 }

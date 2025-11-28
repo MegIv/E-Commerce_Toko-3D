@@ -10,10 +10,12 @@ class SellerController extends Controller
 {
     public function dashboard()
     {
-        $user = Auth::user();
+        $user = Auth::class::user();
+
+        // dd($user->name);
 
         // Pastikan hanya role seller yang bisa akses
-        if ($user->role !== 'seller') {
+        if (!$user->isSeller()) {
             abort(403, 'Unauthorized action.');
         }
 

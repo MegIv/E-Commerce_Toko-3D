@@ -3,10 +3,14 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Traits\UUID;
 
 class Transaction extends Model
 {
     use UUID;
+
+    public $incrementing = false; // Matikan auto-increment
+    protected $keyType = 'string'; // Beritahu bahwa ID adalah string
 
     protected $fillable = [
         'code',
