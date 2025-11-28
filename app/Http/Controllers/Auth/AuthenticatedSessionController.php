@@ -28,6 +28,19 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
+        // Logika pengalihan berdasarkan peran pengguna atau pengecekan role
+        $role = $request->user()->role;
+
+        if ($role === 'admin') {
+            return redirect()->route('admin.verify_stores');
+        }
+
+        if ($role === 'seller') {
+            // Jika Seller, nanti kita arahkan ke Dashboard Seller
+            return redirect()->route('seller.dashboard');
+        } 
+        // add this if slready exist store_owner.dashboard
+
         return redirect()->intended(route('dashboard', absolute: false));
     }
 
